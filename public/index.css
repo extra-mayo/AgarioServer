@@ -1,0 +1,33 @@
+input[type=text]:focus {
+    border: 3px solid #555;
+}
+
+#menu {
+    position: absolute;
+    border-radius: 5px;
+    background-color: white;
+    border: #4c54ff 2px solid;
+    padding: 10px;
+    text-align: right;
+    margin-top: 480px;
+    margin-left: 400px;
+}
+
+h1 {
+    text-align: center;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: cornflowerblue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
