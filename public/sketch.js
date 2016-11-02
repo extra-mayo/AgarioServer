@@ -24,7 +24,6 @@ function setup() {
     image(menuScreen, width / 2, height / 2, 1280, 720);
 }
 
-
 function menuInput() {
     document.getElementById("menu").style.display = "none";
     var name = document.getElementById("name").value;
@@ -133,7 +132,6 @@ function draw() {
         textLeading(5);
         text("you died lol", 300, 300);
         text("score: " + Math.round(player.radius), 300, 320);
-
         socket.emit('dead');
     }
 
