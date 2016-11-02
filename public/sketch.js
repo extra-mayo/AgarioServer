@@ -82,7 +82,7 @@ function draw() {
         misc.setCenter();
         misc.displayWorld();
         for (var i = 0; i < localEXP.length; i++) {
-            localEXP[i].display();
+            localEXP[i].display2();
         }
         // for (var i = 0; i < enemy.length; i++) {
         //     enemy[i].display();

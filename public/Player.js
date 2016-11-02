@@ -85,7 +85,7 @@ function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
         for (var i = 0; i < this.players.length; i++) {
             var id = this.players[i].id;
             if (id.substring(2, id.length) !== this.socketID) {
-                console.log(id.substring(2, id.length), this.socketID);
+                // console.log(id.substring(2, id.length), this.socketID);
                 if (this.checkHit(this.players[i]) == 2) {
                     console.log("YOU LOSE!");
                     this.gameStatus = 2;
