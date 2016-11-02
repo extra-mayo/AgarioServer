@@ -78,30 +78,18 @@ app.use(express.static('public'));
 //player heartbeat
 var io = require('socket.io')(server);
 
-/*
-TODO
- var port = process.env.PORT || 3000;
-
- var app = require('express').createServer()
- var io = require('socket.io').listen(app);
-
- app.listen(port);
-
- */
-
-
-
 setInterval(playerInterval, 30);
 function playerInterval(){
     io.sockets.emit('playerInterval', players);
-}
-
-//EXP heartbeat
-setInterval(expInterval, 30);
-
-function expInterval(){
     io.sockets.emit('expInterval', experience);
 }
+
+// //EXP heartbeat
+// setInterval(expInterval, 30);
+//
+// function expInterval(){
+//     io.sockets.emit('expInterval', experience);
+// }
 
 io.sockets.on('connection', function(socket){
     console.log("new client: " + socket.id);
