@@ -47,7 +47,7 @@ function Experience(id, x, y, r, g, b) {
         noStroke();
         fill(255);
         textAlign(CENTER);
-        text(this.name, this.pos.x, this.pos.y);
+        // text(this.name, this.pos.x, this.pos.y);
     };
 
 
