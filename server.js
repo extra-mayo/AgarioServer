@@ -63,7 +63,7 @@ app.use(function (req, res, next) {
 
 
 var server = require('http').createServer();
-var io = rquire('socket.io')(server);
+var io = require('socket.io')(server);
 server.listen(process.env.PORT || 3000, listenCB);
 
 function listenCB(){
