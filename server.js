@@ -41,6 +41,28 @@ for (i = 0; i < 25; i++){
 var express = require('express');
 var app = express();
 
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://discount-agario.herokuapp.com/');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
+
+
 var server = app.listen(process.env.PORT || 3000, listen);
 
 function listen(){
@@ -55,8 +77,26 @@ app.use(express.static('public'));
 //WebSocket
 //player heartbeat
 var io = require('socket.io')(server);
-setInterval(playerInterval, 1);
 
+/*
+TODO
+ var port = process.env.PORT || 3000;
+
+ var app = require('express').createServer()
+ var io = require('socket.io').listen(app);
+
+ app.listen(port);
+
+ // Heroku setting for long polling
+ io.configure(function () {
+ io.set("transports", ["xhr-polling"]);
+ io.set("polling duration", 10);
+ });
+ */
+
+
+
+setInterval(playerInterval, 1);
 function playerInterval(){
     io.sockets.emit('playerInterval', players);
 }
