@@ -76,7 +76,7 @@ app.use(express.static('public'));
 
 //WebSocket
 //player heartbeat
-var io = require('socket.io')(server);
+var io = require('socket.io', {rememberTransport: false, transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling'] })(server);
 
 /*
 TODO
