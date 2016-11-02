@@ -91,13 +91,13 @@ TODO
 
 
 
-setInterval(playerInterval, 500);
+setInterval(playerInterval, 30);
 function playerInterval(){
     io.sockets.emit('playerInterval', players);
 }
 
 //EXP heartbeat
-setInterval(expInterval, 500);
+setInterval(expInterval, 30);
 
 function expInterval(){
     io.sockets.emit('expInterval', experience);
