@@ -84,7 +84,7 @@ function playerInterval(){
     // io.sockets.emit('expInterval', experience);
 }
 
-// EXP heartbeat
+//EXP heartbeat
 setInterval(expInterval, 30);
 
 function expInterval(){
