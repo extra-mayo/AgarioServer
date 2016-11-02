@@ -62,11 +62,10 @@ app.use(function (req, res, next) {
 });
 
 
-var server = require('http').createServer();
-var io = require('socket.io')(server);
-server.listen(process.env.PORT || 3000, listenCB);
 
-function listenCB(){
+var server = http.listen(process.env.PORT || 3000, listen);
+
+function listen(){
     var host = server.address().address;
     var port = server.address().port;
     console.log("App listening at: " + host + ":" + port);
@@ -77,6 +76,7 @@ app.use(express.static('public'));
 
 //WebSocket
 //player heartbeat
+var io = require('socket.io')(server);
 
 /*
 TODO
