@@ -6,7 +6,7 @@ function Experience(id, x, y, r, g, b) {
     this.id = id;
     this.x = x;
     this.y = y;
-    this.pos = createVector(x, y);
+    // this.pos = createVector(x, y);
     this.radius = 8;
     this.r = r;
     this.g = g;
@@ -43,11 +43,11 @@ function Experience(id, x, y, r, g, b) {
         strokeWeight(5);
         stroke(this.r - 20, this.g - 20, this.b - 20);
         fill(this.r, this.g, this.b);
-        ellipse(this.pos.x, this.pos.y, this.radius, this.radius);
+        ellipse(this.x, this.y, this.radius, this.radius);
         noStroke();
         fill(255);
         textAlign(CENTER);
-        // text(this.name, this.pos.x, this.pos.y);
+        // text(this.name, this.x, this.y);
     };
 
 
