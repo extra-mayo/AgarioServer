@@ -81,7 +81,7 @@ var io = require('socket.io')(server);
 setInterval(playerInterval, 30);
 function playerInterval(){
     io.sockets.emit('playerInterval', players);
-    // io.sockets.emit('expInterval', experience);
+    io.sockets.emit('expInterval', experience);
 }
 
 //EXP heartbeat
