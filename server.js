@@ -14,6 +14,18 @@ function Player (id, name, x, y, radius, r, g, b){
     this.b = b
 }
 
+var experience = [];
+
+function Experience(id, x, y, radius, r,g, b){
+    this.id = id;
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+
+    this.r = r;
+    this.g = g;
+    this.b = b
+}
 
 var express = require('express');
 var app = express();
@@ -31,10 +43,16 @@ app.use(express.static('public'));
 
 //WebSocket
 var io = require('socket.io')(server);
-setInterval(heartbeat, 33);
+setInterval(playerInterval, 1);
 
-function heartbeat(){
-    io.sockets.emit('heartbeat', players);
+function playerInterval(){
+    io.sockets.emit('playerInterval', players);
+}
+
+setInterval(expInterval, 1);
+
+function expInterval(){
+    io.sockets.emit('expInterval', experience);
 }
 
 io.sockets.on('connection', function(socket){
@@ -44,7 +62,7 @@ io.sockets.on('connection', function(socket){
         players.push(new Player(socket.id, data.name, data.x, data.y, data.radius, data.r, data.g, data.b));
     });
 
-    socket.on('update', function(data){
+    socket.on('updatePlayer', function(data){
         var player;
         for (var i = 0; i < players.length; i++){
             if (socket.id == players[i].id){
@@ -54,6 +72,20 @@ io.sockets.on('connection', function(socket){
         player.x = data.x;
         player.y = data.y;
         player.radius = data.radius;
+    });
+
+    socket.on('updateEXP', function(data){
+        var exp;
+        for(var i= 0; i < experience.length; i++){
+            if (socket.id == experience[i].id){
+                exp = experience[i];
+            }
+        }
+        exp.x = data.x;
+        exp.y = data.y;
+        exp.r = data.r;
+        exp.g = data.g;
+        exp.b = data.b;
     });
 
     socket.on('dead', function(data){

@@ -5,6 +5,7 @@
 function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
     this.socketID = socketID.substring(2, socketID.length);
     this.pos = createVector(250, 250);
+    this.EXP = EXP;
     this.radius = 50;
     this.players = players;
     this.enemy = enemy;
@@ -56,11 +57,11 @@ function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
             this.pos.y = 0;
         }
 
-        // for (var i = 0; i < EXP.length; i++) {
-        //     if (this.checkHit(EXP[i]) == 1) {
-        //         EXP[i].respawn();
-        //     }
-        // }
+        for (var i = 0; i < this.EXP.length; i++) {
+            if (this.checkHit(this.EXP[i]) == 1) {
+                this.EXP[i].respawn();
+            }
+        }
         // for (var i = 0; i < enemy.length; i++) {
         //     if (this.checkHit(enemy[i]) == 1) {
         //         enemy[i].respawn();

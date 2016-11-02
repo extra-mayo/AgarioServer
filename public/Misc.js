@@ -2,15 +2,16 @@
  * Created by ho on 10/30/2016.
  */
 
-function Misc(EXP, player, enemy) {
+function Misc(EXP, player, players, enemy) {
     this.EXP = EXP;
     this.player = player;
+    this.players = players;
     this.enemy = enemy;
     this.ArrayOfEverything = [player];
-    for (var i = 0; i < enemy.length; i++) {
-        this.ArrayOfEverything.push(enemy[i]);
-    }
-    ;
+    // for (var i = 0; i < enemy.length; i++) {
+    //     this.ArrayOfEverything.push(enemy[i]);
+    // }
+
 
 
     this.worldImage = loadImage("../images/spaceBackground.jpg");
@@ -20,6 +21,11 @@ function Misc(EXP, player, enemy) {
     };
 
     this.updateOrder = function () {
+        var array = [];
+        for (var i = 0; i < this.players.length; i++){
+            array.push(this.players[i]);
+        }
+        this.ArrayOfEverything = array;
         this.ArrayOfEverything.sort(function (a, b) {
             return b.radius - a.radius;
         });

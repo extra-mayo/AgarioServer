@@ -27,9 +27,6 @@ function setup() {
 function menuInput() {
     document.getElementById("menu").style.display = "none";
     var name = document.getElementById("name").value;
-    // var EXPCount = document.getElementById("expCount").value;
-    // var enemyCount = document.getElementById("enemyCount").value;
-    // var havenCount = document.getElementById("havenCount").value;
 
     for (var i = 0; i < 1; i++) {
         haven.push(new Haven());
@@ -48,20 +45,22 @@ function menuInput() {
     };
     socket.emit('start', data);
 
-    socket.on('heartbeat', function(data){
+    socket.on('playerInterval', function(data){
         players = data;
         player.players = data;
+        misc.players = data;
     });
 
 
-    //
-    // for (var i = 0; i < 1; i++) {
-    //     EXP.push(new Experience());
-    // }
+    socket.on('expInterval', function(data){
+        EXP = data;
+        player.EXP = data;
+        misc.EXP = data;
+    })
     // for (var i = 0; i < 1; i++) {
     //     enemy.push(new Enemy("enemy " + i, i, EXP, enemy, player, gameStatus, haven));
     // }
-    misc = new Misc(EXP, player, enemy);
+    misc = new Misc(EXP, player, players, enemy);
     gameStatus = 1;
 }
 
@@ -76,9 +75,9 @@ function draw() {
         background(0);
         misc.setCenter();
         misc.displayWorld();
-        // for (var i = 0; i < EXP.length; i++) {
-        //     EXP[i].display();
-        // }
+        for (var i = 0; i < EXP.length; i++) {
+            EXP[i].display();
+        }
         // for (var i = 0; i < enemy.length; i++) {
         //     enemy[i].display();
         //     if (enemy[i].gameStatus == 2) {
@@ -111,7 +110,7 @@ function draw() {
             y : player.pos.y,
             radius: player.radius
         };
-        socket.emit('update', data);
+        socket.emit('updatePlayer', data);
     }
     else if (gameStatus == 2) {
         scale(1);
