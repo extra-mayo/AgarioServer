@@ -50,8 +50,10 @@ function menuInput() {
 
     socket.on('heartbeat', function(data){
         players = data;
-        player.players = players;
+        player.players = data;
     });
+
+
     //
     // for (var i = 0; i < 1; i++) {
     //     EXP.push(new Experience());
@@ -83,15 +85,18 @@ function draw() {
         //         gameStatus = 2;
         //     }
         // }
-
+        // console.log(player.players);
 
         for (var i = players.length - 1; i >= 0; i--) {
             var id = players[i].id;
             if (id.substring(2, id.length) !== socket.id) {
                 new OtherPlayer(players[i].name, players[i].x, players[i].y, players[i].radius, players[i].r, players[i].g, players[i].b).display();
             }
+            else {
+                player.socketID = id.substring(2, id.length);
+            }
         }
-
+        // con
         misc.displayScore();
         player.display();
         if (player.gameStatus == 2) {
@@ -117,6 +122,8 @@ function draw() {
         textSize(16);
         textLeading(5);
         text("you died lol", 300, 300);
+
+        socket.emit('dead');
     }
 
 }

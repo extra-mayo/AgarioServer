@@ -31,7 +31,7 @@ app.use(express.static('public'));
 
 //WebSocket
 var io = require('socket.io')(server);
-setInterval(heartbeat, 1);
+setInterval(heartbeat, 33);
 
 function heartbeat(){
     io.sockets.emit('heartbeat', players);
@@ -60,10 +60,10 @@ io.sockets.on('connection', function(socket){
         for (var i = 0; i < players.length; i++){
             if (socket.id == players[i].id){
                 //splice shit here
+                players.splice(i, 1);
                 console.log("yous dead");
             }
         }
-
     });
 
     socket.on('disconnect', function(){

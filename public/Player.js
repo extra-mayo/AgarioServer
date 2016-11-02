@@ -3,7 +3,7 @@
  */
 
 function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
-    this.socketId = socketID;
+    this.socketID = socketID.substring(2, socketID.length);
     this.pos = createVector(250, 250);
     this.radius = 50;
     this.players = players;
@@ -56,39 +56,41 @@ function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
             this.pos.y = 0;
         }
 
-        for (var i = 0; i < EXP.length; i++) {
-            if (this.checkHit(EXP[i]) == 1) {
-                EXP[i].respawn();
-            }
-        }
-        for (var i = 0; i < enemy.length; i++) {
-            if (this.checkHit(enemy[i]) == 1) {
-                enemy[i].respawn();
-            }
-            else if (this.checkHit(enemy[i]) == -1) {
-                this.gameStatus = 2;
-                console.log("YOU LOSE!");
-            }
-        }
+        // for (var i = 0; i < EXP.length; i++) {
+        //     if (this.checkHit(EXP[i]) == 1) {
+        //         EXP[i].respawn();
+        //     }
+        // }
+        // for (var i = 0; i < enemy.length; i++) {
+        //     if (this.checkHit(enemy[i]) == 1) {
+        //         enemy[i].respawn();
+        //     }
+        //     else if (this.checkHit(enemy[i]) == -1) {
+        //         this.gameStatus = 2;
+        //         console.log("YOU LOSE!");
+        //     }
+        // }
 
         for (var i = 0; i < this.haven.length; i++) {
+            // console.log(this.haven[i]);
             if (this.checkHit(this.haven[i]) == 3) {
+                console.log("Hit haven!");
                 this.radius = this.haven[i].radius;
             }
         }
 
 
-
-        for (var i = 0; i < this.players.length; i++){
+        for (var i = 0; i < this.players.length; i++) {
             var id = this.players[i].id;
-            if (id.substring(2, id.length) !== this.socketID){
-                if (this.checkHit(this.players[i] == 2)){
+            if (id.substring(2, id.length) !== this.socketID) {
+                console.log(id.substring(2, id.length), this.socketID);
+                if (this.checkHit(this.players[i]) == 2) {
+                    console.log("YOU LOSE!");
                     this.gameStatus = 2;
-                    //you lose!
-                    console.log("YOU LOSE, PLAYER");
                 }
             }
         }
+
 
     };
 
@@ -103,7 +105,7 @@ function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
     this.checkHit = function (other) {
         console.log(other);
         var x, y;
-        if (other.x != "undefined" && other.y != "undefined"){
+        if (typeof other.x !== 'undefined' && typeof other.y !== 'undefined') {
             x = other.x;
             y = other.y;
         }
@@ -121,7 +123,7 @@ function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
                 }
                 var newArea = PI * this.radius * this.radius + PI * other.radius + other.radius;
                 this.radius = sqrt(newArea / PI) + 0.2;
-                console.log(this.radius);
+                // console.log(this.radius);
                 this.sound.play();
                 return 1;
             }
