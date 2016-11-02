@@ -81,15 +81,15 @@ var io = require('socket.io')(server);
 setInterval(playerInterval, 30);
 function playerInterval(){
     io.sockets.emit('playerInterval', players);
-    io.sockets.emit('expInterval', experience);
+    // io.sockets.emit('expInterval', experience);
 }
 
-// //EXP heartbeat
-// setInterval(expInterval, 30);
-//
-// function expInterval(){
-//     io.sockets.emit('expInterval', experience);
-// }
+//EXP heartbeat
+setInterval(expInterval, 30);
+
+function expInterval(){
+    io.sockets.emit('expInterval', experience);
+}
 
 io.sockets.on('connection', function(socket){
     console.log("new client: " + socket.id);
