@@ -45,7 +45,7 @@ var app = express();
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://discount-agario.herokuapp.com/');
+    res.setHeader('Access-Control-Allow-Origin', 'https://discount-agario.herokuapp.com/');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -76,7 +76,7 @@ app.use(express.static('public'));
 
 //WebSocket
 //player heartbeat
-var io = require('socket.io', {rememberTransport: false, transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling'] })(server);
+var io = require('socket.io', {rememberTransport: false, transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']})(server);
 
 /*
 TODO
@@ -87,11 +87,6 @@ TODO
 
  app.listen(port);
 
- // Heroku setting for long polling
- io.configure(function () {
- io.set("transports", ["xhr-polling"]);
- io.set("polling duration", 10);
- });
  */
 
 
