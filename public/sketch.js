@@ -19,7 +19,7 @@ function preload() {
 
 function setup() {
     createCanvas(1000, 720);
-    socket = io.connect("https://discount-agario.herokuapp.com/", { rememberTransport: false, transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']});
+    socket = io.connect("https://discount-agario.herokuapp.com/", {transports:['websocket']});
     imageMode(CENTER);
     image(menuScreen, width / 2, height / 2, 1280, 720);
 }
