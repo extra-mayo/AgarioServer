@@ -6,7 +6,7 @@ function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
     this.socketID = socketID.substring(2, socketID.length);
     this.pos = createVector(250, 250);
     this.localEXP = EXP;
-    this.radius = 10;
+    this.radius = 50;
     this.players = players;
     this.enemy = enemy;
     this.name = name;
