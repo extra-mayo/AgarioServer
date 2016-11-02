@@ -3,7 +3,8 @@ var players = [];
 
 
 var player;
-var EXP = [];
+var serverEXP = [];
+var localEXP = [];
 var enemy = [];
 var misc;
 var menuScreen;
@@ -31,7 +32,7 @@ function menuInput() {
     for (var i = 0; i < 1; i++) {
         haven.push(new Haven());
     }
-    player = new Player(name, socket.id, EXP, players, enemy, gameStatus, haven);
+    player = new Player(name, socket.id, localEXP, players, enemy, gameStatus, haven);
 
     var data = {
         name: player.name,
@@ -53,14 +54,19 @@ function menuInput() {
 
 
     socket.on('expInterval', function(data){
-        EXP = data;
-        player.EXP = data;
-        misc.EXP = data;
-    })
+        serverEXP = data;
+        localEXP = [];
+        for (var i = 0; i < data.length; i++){
+            localEXP.push(new Experience(data[i].id, data[i].x, data[i].y, data[i].r, data[i].g, data[i].b))
+        }
+
+        player.localEXP = localEXP;
+        // misc.EXP = data;
+    });
     // for (var i = 0; i < 1; i++) {
     //     enemy.push(new Enemy("enemy " + i, i, EXP, enemy, player, gameStatus, haven));
     // }
-    misc = new Misc(EXP, player, players, enemy);
+    misc = new Misc(serverEXP, player, players, enemy);
     gameStatus = 1;
 }
 
@@ -75,8 +81,8 @@ function draw() {
         background(0);
         misc.setCenter();
         misc.displayWorld();
-        for (var i = 0; i < EXP.length; i++) {
-            EXP[i].display();
+        for (var i = 0; i < localEXP.length; i++) {
+            localEXP[i].display();
         }
         // for (var i = 0; i < enemy.length; i++) {
         //     enemy[i].display();
@@ -95,7 +101,7 @@ function draw() {
                 player.socketID = id.substring(2, id.length);
             }
         }
-        // con
+
         misc.displayScore();
         player.display();
         if (player.gameStatus == 2) {
@@ -111,6 +117,11 @@ function draw() {
             radius: player.radius
         };
         socket.emit('updatePlayer', data);
+
+        var data2 = {
+            EXP: localEXP
+        };
+        socket.emit('updateEXP', data2);
     }
     else if (gameStatus == 2) {
         scale(1);
@@ -121,6 +132,7 @@ function draw() {
         textSize(16);
         textLeading(5);
         text("you died lol", 300, 300);
+        text("score: " + player.radius, 300, 320);
 
         socket.emit('dead');
     }

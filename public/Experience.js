@@ -2,12 +2,14 @@
  * Created by ho on 10/29/2016.
  */
 var yOffset = 0;
-function Experience() {
-    this.pos = createVector(random(width), random(728));
+function Experience(id, x, y, r, g, b) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
     this.radius = 8;
-    this.r = random(0, 255);
-    this.g = random(0, 255);
-    this.b = random(0, 255);
+    this.r = r;
+    this.g = g;
+    this.b = b;
 
 
     this.display = function () {
@@ -21,14 +23,15 @@ function Experience() {
             var r = this.radius + offset;
             var x = r * cos(a);
             var y = r * sin(a);
-            vertex(x + this.pos.x, y + this.pos.y);
+            vertex(x + this.x, y + this.y);
             xOffset += 0.1;
             //ellipse(x, y, 4, 4);
         }
         endShape();
         yOffset += 0.01;
 
-        // ellipse(this.pos.x, this.pos.y, this.radius, this.radius);
+
+        // ellipse(this.x, this.y, this.radius, this.radius);
 
     };
 
@@ -36,7 +39,8 @@ function Experience() {
         this.r = random(0, 255);
         this.g = random(0, 255);
         this.b = random(0, 255);
-        this.pos = createVector(random(width), random(728));
+        this.x = random(width);
+        this.y =  random(720);
     }
 
 

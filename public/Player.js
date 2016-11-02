@@ -5,7 +5,7 @@
 function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
     this.socketID = socketID.substring(2, socketID.length);
     this.pos = createVector(250, 250);
-    this.EXP = EXP;
+    this.localEXP = EXP;
     this.radius = 50;
     this.players = players;
     this.enemy = enemy;
@@ -57,9 +57,10 @@ function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
             this.pos.y = 0;
         }
 
-        for (var i = 0; i < this.EXP.length; i++) {
-            if (this.checkHit(this.EXP[i]) == 1) {
-                this.EXP[i].respawn();
+        for (var i = 0; i < this.localEXP.length; i++) {
+            if (this.checkHit(this.localEXP[i]) == 1) {
+                console.log("hit exp!");
+                this.localEXP[i].respawn();
             }
         }
         // for (var i = 0; i < enemy.length; i++) {
@@ -104,7 +105,7 @@ function Player(name, socketID, EXP, players, enemy, gameStatus, haven) {
 
 
     this.checkHit = function (other) {
-        console.log(other);
+        // console.log(other);
         var x, y;
         if (typeof other.x !== 'undefined' && typeof other.y !== 'undefined') {
             x = other.x;
