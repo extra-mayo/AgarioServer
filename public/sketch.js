@@ -82,7 +82,7 @@ function draw() {
         misc.setCenter();
         misc.displayWorld();
         for (var i = 0; i < localEXP.length; i++) {
-            localEXP[i].display2();
+            localEXP[i].display();
         }
         // for (var i = 0; i < enemy.length; i++) {
         //     enemy[i].display();
@@ -132,7 +132,7 @@ function draw() {
         textSize(16);
         textLeading(5);
         text("you died lol", 300, 300);
-        text("score: " + player.radius, 300, 320);
+        text("score: " + Math.round(player.radius), 300, 320);
 
         socket.emit('dead');
     }
